@@ -8,6 +8,7 @@
 #include "common.h"
 
 #define MAX_NAME_LENGTH (50U)
+#define MAX_ADDRESS_LENGTH (100U)
 #define MAX_SUBJECTS (10U)
 #define MAX_NUMBER_STUDENTS (100U)
 
@@ -21,7 +22,8 @@ typedef struct student
         uint16_t ulsumMarks;
         uint8_t ucgrades[MAX_SUBJECTS];
         uint8_t ucrank;
-        uint8_t ucaverageMarks;
+        float ucaverageMarks;
+        uint8_t pucaddress[MAX_ADDRESS_LENGTH];
     }student;
 
 /* Function prototypes for student management */

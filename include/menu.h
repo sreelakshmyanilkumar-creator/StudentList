@@ -6,13 +6,37 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "student.h"
+#include "linkedlist.h"
+#include "common.h"
 
 typedef enum
     {
     STUDENT_ADD = 1,
     STUDENT_LIST,
-    STUDENT_DELETE
+    STUDENT_DELETE,
+    STUDENT_OVERVIEW
     }MENU_OPTIONS;
+
+typedef enum
+    {
+    SEARCH_NAME = 1,
+    SORT_NAME,
+    SORT_ROLLNUMBER,
+    SORT_RANK
+    }LIST_OPTIONS;
+
+typedef enum
+    {
+    DELETE_NAME = 1,
+    DELETE_ROLL,
+    DELETE_ALL
+    }DELETE_OPTIONS;
+
+typedef enum
+    {
+    STUDENT_COUNT = 1,
+    AVERAGE_MARKS
+    }OVERVIEW_OPTIONS;
 
 typedef struct STUDENT_HANDLER
 {
@@ -20,26 +44,50 @@ typedef struct STUDENT_HANDLER
     bool (*func) (void);
 }STUDENT_HANDLER;
 
+typedef struct LIST_HANDLER
+{
+    LIST_OPTIONS menuOptions;
+    bool (*func) (void);
+}LIST_HANDLER;
+
+typedef struct DELETE_HANDLER
+{
+    DELETE_OPTIONS menuOptions;
+    bool (*func) (void);
+}DELETE_HANDLER;
+
+typedef struct OVERVIEW_HANDLER
+{
+    OVERVIEW_OPTIONS menuOptions;
+    bool (*func) (void);
+}OVERVIEW_HANDLER;
+
+extern Node* studentHeadNode;
+
 /* Displays  "main menu"*/
 
-bool menuMain(void);			
+bool menuMain(void);
 
 // Main Menu
 bool menuStudentOverview(void);
-bool menuAddStudent(void);		// Ask name, roll number, Marks of 10 subjects, student Address(Dyanamic size), calc sum of marks, average, grades of each and Rank
-bool menuListStudent(void);		// Print the students names based on "List Student menu"
-bool menuDeleteStudent(void);	// Remove the students based on "Delete Student menu"
+bool menuAddStudent(void);
+bool menuListStudent(void);
+bool menuDeleteStudent(void);
 
 // List Student Menu
-bool menuListSearchByName(void);	// Ask name, and show result
-bool menuListSortByName(void);		// Show all student list sorted by Name(Alphabetically)
-bool menuListSortByRoll(void);		// Show all student list sorted by Roll number
-bool menuListSortByRank(void);		// Show all student list sorted by Rank
+bool menuListSearchByName(void);
+bool menuListSortByName(void);
+bool menuListSortByRoll(void);
+bool menuListSortByRank(void);
 
 // Delete Student Menu
-bool menuDeleteByName(void);		// Ask name, and delete student
-bool menuDeleteByRoll(void);		// Ask Roll, and delete student
-bool menuDeleteAll(void);			// Delete all
+bool menuDeleteByName(void);
+bool menuDeleteByRoll(void);
+bool menuDeleteAll(void);
+
+//Overview Menu
+bool menuStudentCount(void);
+bool menuAverageMarks(void);
 
 
 #endif // MENU_H

@@ -1,8 +1,10 @@
+/*main file */
+
 #include <stdio.h>
 #include "menu.h"
 
-
 /* Main function to start the program */
+
 int main()
     {
         int blRet = FALSE;

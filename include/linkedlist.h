@@ -14,6 +14,14 @@ typedef struct Node
     }Node;
 
 bool linkedListNodeAddbeginning(Node** ppstlinkedlistHead, student* pstInfo);
-
+bool linkedListNodePrint(Node* pstlinkedlistHead);
+bool linkedListNodeSearchByName(Node* pstlinkedlistHead);
+bool linkedListNodeSortByName(Node* pstlinkedlistHead);
+bool linkedListNodeSortByRoll(Node* pstlinkedlistHead);
+bool linkedListDeleteByName(Node** ppstlinkedlistHead, char* pucName);
+bool linkedListDeleteByRoll(Node** ppstlinkedlistHead, uint32* ulRoll);
+bool linkedListDeleteAll(Node** ppstlinkedlistHead);
+bool linkedListGetCount(Node* pstlinkedlistHead, uint32* ulCount);
+bool linkedListAverageMarks(Node* pstlinkedlistHead, uint8_t* pucAvgMarks);
 
 #endif // LINKEDLIST_H
