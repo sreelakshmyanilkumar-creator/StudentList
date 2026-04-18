@@ -16,7 +16,7 @@ bool linkedListNodePrint(Node* pstlinkedlistHead)
 
         if(pstlinkedlistHead != NULL)
             {
-                Node* currentNode = pstlinkedlistHead;
+                const Node* currentNode = pstlinkedlistHead;
 
                 while(currentNode != NULL)
                     {
@@ -102,7 +102,7 @@ bool linkedListNodeSearchByName(Node* pstlinkedlistHead)
                 uint8_t searchName[MAX_NAME_LENGTH] = {0};
 
                 printf("Enter the name to search: ");
-                scanf(" %s", searchName);
+                scanf(" %49s", searchName);
 
                 while(currentNode != NULL)
                     {
@@ -211,48 +211,6 @@ bool linkedListNodeSortByRoll(Node* pstlinkedlistHead)
         return blRet;
     }
 
-/*To sort by total marks*/
-
-bool linkedlistSortByTotalMarks(Node* studentHeadNode)
-    {
-        bool blRet = FALSE;
-
-        if(studentHeadNode == NULL)
-            {
-                printf("Invalid input to linkedlistSortByTotalMarks.\n");
-                blRet =  FALSE;
-            }
-        else
-            {
-                Node* currentNode = studentHeadNode;
-                Node* nextNode = NULL;
-                student temp;
-
-                while(currentNode != NULL)
-                    {
-                        nextNode = currentNode->pstNext;
-
-                        while(nextNode != NULL)
-                            {
-                                if(currentNode->stInfo.ulsumMarks < 
-                                   nextNode->stInfo.ulsumMarks)
-                                    {
-                                        temp = currentNode->stInfo;
-                                        currentNode->stInfo = nextNode->stInfo;
-                                        nextNode->stInfo = temp;
-                                    }
-
-                                nextNode = nextNode->pstNext;
-                            }
-                        currentNode = currentNode->pstNext;
-                    }
-
-                    blRet = TRUE;
-            }
-
-        return blRet;
-    }
-
 /*To delete linkedlist by name*/
 
 bool linkedListDeleteByName(Node** ppstlinkedlistHead, char* pucName)
@@ -270,7 +228,7 @@ bool linkedListDeleteByName(Node** ppstlinkedlistHead, char* pucName)
             {
                 currentNode = *ppstlinkedlistHead;
     	        printf("Enter the name to delete: ");
-    	        scanf(" %s", pucName);
+    	        scanf(" %49s", pucName);
 
                 while (currentNode != NULL)
                     {

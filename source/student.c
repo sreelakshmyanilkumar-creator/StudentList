@@ -12,12 +12,26 @@ bool studentAdd(student* pstInfo)
         bool blRet = TRUE;
 
         printf("Enter student name: ");
-        scanf(" %s", pstInfo->pucname);
-        printf("Student name: %s\n", pstInfo->pucname);
+        if(scanf(" %49s", pstInfo->pucname) == 1)
+            {
+                printf("Student name: %s\n", pstInfo->pucname);
+            }
+        else
+            {
+                printf("Invalid input for student name.\n");
+                blRet = FALSE;
+        }
 
         printf("Enter student Address: ");
-        scanf(" %s", pstInfo->pucaddress);
-        printf("Student address: %s\n", pstInfo->pucaddress);
+        if(scanf(" %99s", pstInfo->pucaddress) == 1)
+            {
+                printf("Student address: %s\n", pstInfo->pucaddress);
+            }
+        else
+            {
+                printf("Invalid input for student address.\n");
+                blRet = FALSE;
+            }
 
         printf("Enter roll number: ");
         scanf("%hhu", &pstInfo->ucrollNumber);
@@ -143,7 +157,7 @@ bool studentGetCount(uint32* pulCount)
     {
         bool blRet = FALSE;
         uint32 count = 0;
-        Node* currentNode = studentHeadNode;
+        const Node* currentNode = studentHeadNode;
 
         if(pulCount != NULL)
             {
@@ -171,10 +185,10 @@ bool studentGetAvgMarksOfSubjects(uint8_t* pucTotalAvg)
     bool blRet = FALSE;
     Node* currentNode = studentHeadNode;
     uint32_t totalMarks[MAX_SUBJECTS] = {0};
-    uint32_t studentCount = 0;
 
     if(pucTotalAvg != NULL)
     {
+        uint32_t studentCount = 0;
         if (studentHeadNode == NULL)
         {
             printf("List is empty.\n");

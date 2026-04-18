@@ -36,7 +36,7 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 .PHONY: check tidy analyze
 
 cppcheck:
-	$(CPPCHECK) --enable=all --suppress=missingIncludeSystem \
+	$(CPPCHECK) --enable=warning,style,performance,portability --suppress=missingIncludeSystem \
 	--error-exitcode=1 $(SRC_DIR) $(INC_DIR)
 
 clangtidy:

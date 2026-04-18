@@ -1,10 +1,14 @@
 /*menu file*/
 
+/*Includes*/
+
 #include <stdio.h>
 #include "menu.h"
 #include "student.h"
 #include "common.h"
 #include "linkedlist.h"
+
+/*Global variables*/
 
 const STUDENT_HANDLER studentHandler[] =
     {
@@ -59,8 +63,8 @@ bool menuMain(void)
                 /*Get user input*/
 
                 printf("Enter your choice: ");
-                scanf("%d", &menuOption);
-                printf("menuOption: %d\n", menuOption);
+                scanf("%hhu", &menuOption);
+                printf("menuOption: %hhu\n", menuOption);
 
                 menuOptionsMaxCount = 
                             sizeof(studentHandler)/sizeof(studentHandler[0]);
@@ -104,8 +108,8 @@ bool menuStudentOverview(void)
         /*Get user input*/
 
         printf("Enter your choice: ");
-        scanf("%d", &menuOption);
-        printf("menuOption: %d\n", menuOption);
+        scanf("%hhu", &menuOption);
+        printf("menuOption: %hhu\n", menuOption);
 
         menuOptionsMaxCount = 
                             sizeof(overviewHandler)/sizeof(overviewHandler[0]);
@@ -196,8 +200,8 @@ bool menuListStudent(void)
         /*Get user input*/
 
         printf("Enter your choice: ");
-        scanf("%d", &menuOption);
-        printf("menuOption: %d\n", menuOption);
+        scanf("%hhu", &menuOption);
+        printf("menuOption: %hhu\n", menuOption);
 
         menuOptionsMaxCount = sizeof(listHandler)/sizeof(listHandler[0]);
 
@@ -281,8 +285,8 @@ bool menuDeleteStudent(void)
         /*Get user input*/
 
         printf("Enter your choice: ");
-        scanf("%d", &menuOption);
-        printf("menuOption: %d\n", menuOption);
+        scanf("%hhu", &menuOption);
+        printf("menuOption: %hhu\n", menuOption);
 
         menuOptionsMaxCount = sizeof(deleteHandler)/sizeof(deleteHandler[0]);
 
