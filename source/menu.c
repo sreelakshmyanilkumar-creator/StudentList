@@ -15,7 +15,8 @@ const STUDENT_HANDLER studentHandler[] =
     {STUDENT_ADD, menuAddStudent},
     {STUDENT_LIST, menuListStudent},
     {STUDENT_DELETE, menuDeleteStudent},
-    {STUDENT_OVERVIEW, menuStudentOverview}
+    {STUDENT_OVERVIEW, menuStudentOverview},
+    {STUDENT_MENU_EXIT, menuExit}
    };
 
 const LIST_HANDLER listHandler[] =
@@ -59,32 +60,45 @@ bool menuMain(void)
                 printf("2. List all students\n");
                 printf("3. Delete a student\n");
                 printf("4. Student Overview\n");
+                printf("5. Exit\n");
 
                 /*Get user input*/
 
                 printf("Enter your choice: ");
-                scanf("%hhu", &menuOption);
-                printf("menuOption: %hhu\n", menuOption);
 
-                menuOptionsMaxCount = 
+                if(scanf("%hhu", &menuOption) == TRUE)
+		            {
+                    	printf("menuOption: %hhu\n", menuOption);
+
+                        menuOptionsMaxCount = 
                             sizeof(studentHandler)/sizeof(studentHandler[0]);
 
-                if(menuOption < 1 || menuOption > menuOptionsMaxCount)
-                    {
-                        printf("Invalid option...\n");
-                        blRet = FALSE;
-                    }
-                else
-                   {
-                        for(count = 0; count < menuOptionsMaxCount; count++)
+                        if((menuOption < MIN_OPTION_NUMBER) || 
+                        (menuOption > menuOptionsMaxCount))
+                        {
+                            printf("Invalid option...\n");
+                            blRet = FALSE;
+                            break;
+                        }
+                        else
                             {
-                                if(studentHandler[count].menuOptions == 
-                                   menuOption)
+                                for(count = 0; count < menuOptionsMaxCount; 
+                                    count++)
                                     {
-                                        blRet = studentHandler[count].func();
+                                        if(studentHandler[count].menuOptions == 
+                                        menuOption)
+                                            {
+                                                blRet = 
+                                                studentHandler[count].func();
+                                            }
                                     }
                             }
-                }
+		            }
+		        else
+		            {
+			            printf("input invalid\n");
+			            blRet = FALSE;
+		            }
             }
 
         return blRet;
@@ -99,7 +113,6 @@ bool menuStudentOverview(void)
         uint8_t menuOptionsMaxCount = 0;
         uint8_t count = 0;
 
- 
         printf("Student Overview\n");
         printf("Please select an option:\n");
         printf("1. Show total number of students\n");
@@ -108,32 +121,38 @@ bool menuStudentOverview(void)
         /*Get user input*/
 
         printf("Enter your choice: ");
-        scanf("%hhu", &menuOption);
-        printf("menuOption: %hhu\n", menuOption);
 
-        menuOptionsMaxCount = 
+        if(scanf("%hhu", &menuOption) == TRUE)
+            {
+                printf("menuOption: %hhu\n", menuOption);
+
+                menuOptionsMaxCount = 
                             sizeof(overviewHandler)/sizeof(overviewHandler[0]);
 
-        if(menuOption < 1 || menuOption > menuOptionsMaxCount)
-            {
-                printf("Invalid option...\n");
-                blRet = FALSE;
-            }
-        else
-            {
-                for(count = 0; count < menuOptionsMaxCount; count++)
+                if((menuOption < MIN_OPTION_NUMBER) || (menuOption > menuOptionsMaxCount))
                     {
-                        if(overviewHandler[count].menuOptions == 
-                                   menuOption)
+                        printf("Invalid option...\n");
+                        blRet = FALSE;
+                    }
+                else
+                    {
+                        for(count = 0; count < menuOptionsMaxCount; count++)
                             {
-                                blRet = overviewHandler[count].func();
+                                if(overviewHandler[count].menuOptions == 
+                                   menuOption)
+                                    {
+                                        blRet = overviewHandler[count].func();
+                                    }
                             }
                     }
-                    
-                blRet = TRUE;
             }
+            else
+                {
+                    printf("input invalid\n");
+                    blRet = FALSE;
+                }        
 
-            return blRet;
+        return blRet;
     }
 
 /*// Ask name, roll number, Marks of 10 subjects, student Address(Dyanamic size)
@@ -144,24 +163,22 @@ bool menuAddStudent(void)
         bool blRet = FALSE;
         student* pstInfo = (student*)malloc(sizeof(student));
 
-        if(studentAdd(pstInfo))
+        if(studentAdd(pstInfo) == TRUE)
             {
                 printf("pstInfo.name: %s\n", pstInfo->pucname);
                 printf("pstInfo.address: %s\n", pstInfo->pucaddress);
                 printf("pstInfo.rollNumber: %d\n", pstInfo->ucrollNumber);
-                printf("pstInfo.marks: %d-%d-%d-%d-%d-%d-%d-%d-%d-%d\n", 
-                       pstInfo->ucmarks[0],
-                       pstInfo->ucmarks[1],
-                       pstInfo->ucmarks[2],
-                       pstInfo->ucmarks[3],
-                       pstInfo->ucmarks[4],
-                       pstInfo->ucmarks[5],
-                       pstInfo->ucmarks[6],
-                       pstInfo->ucmarks[7],
-                       pstInfo->ucmarks[8],
-                       pstInfo->ucmarks[9]);
+                printf("pstInfo.sumMarks: %u\n", pstInfo->ulsumMarks);
+                printf("pstInfo.averageMarks: %.2f\n", pstInfo->ucaverageMarks);
 
-                if(linkedListNodeAddbeginning(&studentHeadNode, pstInfo))
+                for(uint8_t count = 0; count < MAX_SUBJECTS; count++)
+                    {
+                        printf("Marks: %d, grade: %c\n", 
+                        pstInfo->ucmarks[count], 
+                        pstInfo->ucgrades[count]);
+                    }
+
+                 if(linkedListNodeAddbeginning(&studentHeadNode, pstInfo))
                     {
                         linkedListNodePrint(studentHeadNode);
                         free(pstInfo);
@@ -175,6 +192,8 @@ bool menuAddStudent(void)
             }
         else
             {
+                printf("Student addition failed\n");
+                free(pstInfo);
                 blRet = FALSE;
             }
 
@@ -200,27 +219,37 @@ bool menuListStudent(void)
         /*Get user input*/
 
         printf("Enter your choice: ");
-        scanf("%hhu", &menuOption);
-        printf("menuOption: %hhu\n", menuOption);
 
-        menuOptionsMaxCount = sizeof(listHandler)/sizeof(listHandler[0]);
-
-        if(menuOption < 1 || menuOption > menuOptionsMaxCount)
+        if(scanf("%hhu", &menuOption) == TRUE)
             {
-                printf("Invalid option...\n");
-                blRet = FALSE;
+                printf("menuOption: %hhu\n", menuOption);
+
+                menuOptionsMaxCount = 
+                                    sizeof(listHandler)/sizeof(listHandler[0]);
+
+                if(menuOption < MIN_OPTION_NUMBER || 
+                    menuOption > menuOptionsMaxCount)
+                    {
+                        printf("Invalid option...\n");
+                        blRet = FALSE;
+                    }
+                else
+                {
+                    for(count = 0; count < menuOptionsMaxCount; count++)
+                        {
+                            if(listHandler[count].menuOptions == menuOption)
+                                {
+                                    blRet = listHandler[count].func();
+                                }
+                        }
+                }
             }
         else
             {
-                for(count = 0; count < menuOptionsMaxCount; count++)
-                    {
-                        if(listHandler[count].menuOptions == menuOption)
-                            {
-                                blRet = listHandler[count].func();
-                            }
-                    }
+                printf("input invalid\n");
+                blRet = FALSE;
             }
-
+        
         return blRet;
     }
 
@@ -230,7 +259,7 @@ bool menuListSearchByName(void)
     {
         bool blRet = FALSE;
 
-        if(linkedListNodeSearchByName(studentHeadNode))
+        if(linkedListNodeSearchByName(studentHeadNode) == TRUE)
             {
                 blRet = TRUE;
             }
@@ -290,7 +319,7 @@ bool menuDeleteStudent(void)
 
         menuOptionsMaxCount = sizeof(deleteHandler)/sizeof(deleteHandler[0]);
 
-        if(menuOption < 1 || menuOption > menuOptionsMaxCount)
+        if(menuOption < MIN_OPTION_NUMBER || menuOption > menuOptionsMaxCount)
             {
                 printf("Invalid option...\n");
                 blRet = FALSE;
@@ -392,6 +421,18 @@ bool menuAverageMarks(void)
             {
                 blRet = FALSE;
             }
+
+        return blRet;
+    }
+
+/*menu Exit*/
+/* Added a a void function only because exit(0) does return anything*/
+bool menuExit(void)
+    {
+        bool blRet = TRUE;
+
+        printf("Exiting the program. Goodbye!!!\n");
+        exit(0);
 
         return blRet;
     }

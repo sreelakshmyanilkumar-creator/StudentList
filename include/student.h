@@ -12,6 +12,18 @@
 #define MAX_SUBJECTS (10U)
 #define MAX_NUMBER_STUDENTS (100U)
 
+#define DISTINCTION_MARK (90U)
+#define FIRST_CLASS_MARK (80U)
+#define SECOND_CLASS_MARK (70U)
+#define THIRD_CLASS_MARK (60U)
+#define FAIL_MARK (0U)
+
+#define GRADE_A 'A'
+#define GRADE_B 'B'
+#define GRADE_C 'C'
+#define GRADE_D 'D'
+#define GRADE_FAIL 'F'
+
 /* Student structure definition */
 
 typedef struct student

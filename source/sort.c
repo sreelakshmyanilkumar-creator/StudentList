@@ -16,7 +16,7 @@ bool SortByName(Node* pstlinkedlistHead)
         {
             Node* currentNode = pstlinkedlistHead;
             Node* nextNode = NULL;
-            student temp;
+            student temp = {0};
 
             while(currentNode != NULL)
                 {

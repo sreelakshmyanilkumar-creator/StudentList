@@ -9,12 +9,15 @@
 #include "linkedlist.h"
 #include "common.h"
 
+#define MIN_OPTION_NUMBER (1U)
+
 typedef enum
     {
     STUDENT_ADD = 1,
     STUDENT_LIST,
     STUDENT_DELETE,
-    STUDENT_OVERVIEW
+    STUDENT_OVERVIEW,
+    STUDENT_MENU_EXIT
     }MENU_OPTIONS;
 
 typedef enum
@@ -89,5 +92,7 @@ bool menuDeleteAll(void);
 bool menuStudentCount(void);
 bool menuAverageMarks(void);
 
+//exit
+bool menuExit(void);
 
 #endif // MENU_H

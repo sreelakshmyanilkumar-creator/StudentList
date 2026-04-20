@@ -9,6 +9,9 @@
 #define TRUE (1U)
 #define FALSE (0U)
 
+#define SUCCESS (0)
+#define FAILURE (-1)
+
 typedef uint8_t uint8;
 typedef uint32_t uint32;
 

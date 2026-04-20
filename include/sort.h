@@ -8,5 +8,6 @@
 #include "common.h"
 
 bool SortByName(Node* pstlinkedlistHead);
+bool SortByRoll(Node* pstlinkedlistHead);
 
 #endif // SORT_H

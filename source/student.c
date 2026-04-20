@@ -10,9 +10,11 @@
 bool studentAdd(student* pstInfo)
     {
         bool blRet = TRUE;
+        char inputBuffer[MAX_NAME_LENGTH] = {0};
 
         printf("Enter student name: ");
-        if(scanf(" %49s", pstInfo->pucname) == 1)
+        
+        if(scanf(" %49s", pstInfo->pucname) == TRUE)
             {
                 printf("Student name: %s\n", pstInfo->pucname);
             }
@@ -23,6 +25,7 @@ bool studentAdd(student* pstInfo)
         }
 
         printf("Enter student Address: ");
+
         if(scanf(" %99s", pstInfo->pucaddress) == 1)
             {
                 printf("Student address: %s\n", pstInfo->pucaddress);
@@ -38,6 +41,7 @@ bool studentAdd(student* pstInfo)
         printf("Roll number: %d\n", pstInfo->ucrollNumber);
 
         printf("Enter marks for %d subjects:\n", MAX_SUBJECTS);
+        
         for(uint8_t i = 0; i < MAX_SUBJECTS; i++)
             {
                 printf("Subject %d: ", i + 1);
@@ -89,30 +93,31 @@ bool studentCalcSum(student* pstInfo, uint32* pulSum)
 bool studentCalcGrades(student* pstInfo, uint8* pucSum)
     {
         bool blRet = FALSE;
+        (void)pucSum;
 
         if(pstInfo != NULL && pucSum != NULL)
             {
                 for(uint8_t count = 0; count < MAX_SUBJECTS; count++)
                     {
-                        if(pstInfo->ucmarks[count] >= 90)
+                        if(pstInfo->ucmarks[count] >= DISTINCTION_MARK)
                             {
-                                pstInfo->ucgrades[count] = 'A';
+                                pstInfo->ucgrades[count] = GRADE_A;
                             }
-                        else if(pstInfo->ucmarks[count] >= 80)
+                        else if(pstInfo->ucmarks[count] >= FIRST_CLASS_MARK)
                             {
-                                pstInfo->ucgrades[count] = 'B';
+                                pstInfo->ucgrades[count] = GRADE_B;
                             }
-                        else if(pstInfo->ucmarks[count] >= 70)
+                        else if(pstInfo->ucmarks[count] >= SECOND_CLASS_MARK)
                             {
-                                pstInfo->ucgrades[count] = 'C';
+                                pstInfo->ucgrades[count] = GRADE_C;
                             }
-                        else if(pstInfo->ucmarks[count] >= 60)
+                        else if(pstInfo->ucmarks[count] >= THIRD_CLASS_MARK)
                             {
-                                pstInfo->ucgrades[count] = 'D';
+                                pstInfo->ucgrades[count] = GRADE_D;
                             }
                         else
                             {
-                                pstInfo->ucgrades[count] = 'F';
+                                pstInfo->ucgrades[count] = GRADE_FAIL;
                             }
                     }
                 blRet = TRUE;
@@ -184,11 +189,11 @@ bool studentGetAvgMarksOfSubjects(uint8_t* pucTotalAvg)
     {
         bool blRet = FALSE;
         Node* currentNode = studentHeadNode;
-        uint32_t totalMarks[MAX_SUBJECTS] = {0};
 
         if(pucTotalAvg != NULL)
             {
                 uint32_t studentCount = 0;
+
                 if (studentHeadNode == NULL)
                     {
                         printf("List is empty.\n");

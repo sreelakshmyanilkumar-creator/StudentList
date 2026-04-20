@@ -45,7 +45,7 @@ bool linkedListNodePrint(Node* pstlinkedlistHead)
                         // 3. Subject Breakdown
                         printf("-------------------------------------------\n");
                         printf("Subject Marks: ");
-                        for(int i = 0; i < 10; i++) 
+                        for(int i = 0; i < MAX_SUBJECTS; i++) 
                             {
                                 printf("[%02d] ", 
                                     currentNode->stInfo.ucmarks[i]);
@@ -86,7 +86,6 @@ bool linkedListNodeAddbeginning(Node** ppstlinkedlistHead, student* pstInfo)
             }
 
         return blRet;
-
 }
 
 /*To search by name*/
@@ -101,49 +100,56 @@ bool linkedListNodeSearchByName(Node* pstlinkedlistHead)
                 uint8_t searchName[MAX_NAME_LENGTH] = {0};
 
                 printf("Enter the name to search: ");
-                scanf(" %49s", searchName);
-
-                while(currentNode != NULL)
+                if(scanf(" %49s", searchName) == TRUE)
                     {
-                        if(strncmp((char*)currentNode->stInfo.pucname, 
+                        printf("searchName: %s\n", searchName);
+
+                        while(currentNode != NULL)
+                        {
+                            if(strncmp((char*)currentNode->stInfo.pucname, 
                                     (char*)searchName, strlen(searchName)) == 0)
-                            {
-                                printf("\n=================================\n");
-                                printf("         STUDENT RECORD            \n");
-                                printf("===================================\n");
+                                {
+                                    printf("\n=================================\n");
+                                    printf("         STUDENT RECORD            \n");
+                                    printf("===================================\n");
 
-                                // 1. Basic Info Row
-                                printf("%-15s : %s\n", "Name", 
-                                currentNode->stInfo.pucname);
-                                printf("%-15s : %d\n", "Roll Number", 
-                                currentNode->stInfo.ucrollNumber);
-                                printf("%-15s : %s\n", "Address", 
-                                currentNode->stInfo.pucaddress);
+                                    // 1. Basic Info Row
+                                    printf("%-15s : %s\n", "Name", 
+                                    currentNode->stInfo.pucname);
+                                    printf("%-15s : %d\n", "Roll Number", 
+                                    currentNode->stInfo.ucrollNumber);
+                                    printf("%-15s : %s\n", "Address", 
+                                    currentNode->stInfo.pucaddress);
 
-                                // 2. Academic Performance Row
-                                printf("-----------------------------------\n");
-                                printf("%-15s : %-5u\n", 
-                                "Total Marks",  currentNode->stInfo.ulsumMarks);
+                                    // 2. Academic Performance Row
+                                    printf("-----------------------------------\n");
+                                    printf("%-15s : %-5u\n", 
+                                    "Total Marks",  currentNode->stInfo.ulsumMarks);
 
-                                // Fix: Change %f to %.2f if average is float,
-                                // or %d if it's uint8_t
-                                printf("%-15s : %f\n", "Average", 
-                                currentNode->stInfo.ucaverageMarks);
+                                    // Fix: Change %f to %.2f if average is float,
+                                    // or %d if it's uint8_t
+                                    printf("%-15s : %.2f\n", "Average", 
+                                    currentNode->stInfo.ucaverageMarks);
 
-                                // 3. Subject Breakdown
-                                printf("-----------------------------------\n");
-                                printf("Subject Marks: ");
-                                for(int i = 0; i < 10; i++) 
-                                    {
-                                        printf("[%02d] ", 
-                                        currentNode->stInfo.ucmarks[i]);
-                                    }
+                                    // 3. Subject Breakdown
+                                    printf("-----------------------------------\n");
+                                    printf("Subject Marks: ");
+                                    for(int i = 0; i < MAX_SUBJECTS; i++) 
+                                        {
+                                            printf("[%02d] ", 
+                                            currentNode->stInfo.ucmarks[i]);
+                                        }
                                     printf("\n=============================\n");
                                     blRet = TRUE;
                                     break;
-                            }
-                            
-                        currentNode = currentNode->pstNext;
+                                }
+                            currentNode = currentNode->pstNext;
+                        }
+                    }
+                else
+                    {
+                        printf("Invalid input for search name.\n");
+                        return FALSE;
                     }
             }
         else
@@ -226,31 +232,38 @@ bool linkedListDeleteByName(Node** ppstlinkedlistHead, char* pucName)
             {
                 currentNode = *ppstlinkedlistHead;
     	        printf("Enter the name to delete: ");
-    	        scanf(" %49s", pucName);
 
-                while (currentNode != NULL)
+    	        if(scanf(" %49s", pucName) == TRUE)
                     {
-                        if (strncmp((char*)currentNode->stInfo.pucname, 
-                        (char*)pucName, MAX_NAME_LENGTH) == 0)
+                        while (currentNode != NULL)
                             {
-                                if (prevNode == NULL) 
+                                if (strncmp((char*)currentNode->stInfo.pucname, 
+                                (char*)pucName, MAX_NAME_LENGTH) == 0)
                                     {
-                                        *ppstlinkedlistHead = 
-                                        currentNode->pstNext;
-                                    }
-                                else 
-                                    {
-                                        prevNode->pstNext = 
-                                        currentNode->pstNext;
+                                        if (prevNode == NULL) 
+                                            {
+                                                *ppstlinkedlistHead = 
+                                                currentNode->pstNext;
+                                            }
+                                        else 
+                                            {
+                                                prevNode->pstNext = 
+                                                currentNode->pstNext;
+                                            }
+
+                                        free(currentNode);
+                                        blRet = TRUE;
+                                        break;
                                     }
 
-                                free(currentNode);
-                                blRet = TRUE;
-                                break;
+                                prevNode = currentNode;
+                                currentNode = currentNode->pstNext;
                             }
-
-                        prevNode = currentNode;
-                        currentNode = currentNode->pstNext;
+                    }
+                else
+                    {
+                        printf("Invalid input for name to delete.\n");
+                        return FALSE;
                     }
             }
             
