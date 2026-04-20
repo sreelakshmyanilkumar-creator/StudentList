@@ -34,9 +34,8 @@ bool linkedListNodePrint(Node* pstlinkedlistHead)
 
                         // 2. Academic Performance Row
                         printf("-------------------------------------------\n");
-                        printf("%-15s : %-5d | %-15s : %-5u\n", 
-                                "Rank",         currentNode->stInfo.ucrank, 
-                                "Total Marks",  currentNode->stInfo.ulsumMarks);
+                        printf("%-15s : %-5u\n", 
+                        "Total Marks",  currentNode->stInfo.ulsumMarks);
 
                         // Fix: Change %f to %.2f if average is float, or %d if
                         // it's uint8_t
@@ -123,8 +122,7 @@ bool linkedListNodeSearchByName(Node* pstlinkedlistHead)
 
                                 // 2. Academic Performance Row
                                 printf("-----------------------------------\n");
-                                printf("%-15s : %-5d | %-15s : %-5u\n", 
-                                "Rank",         currentNode->stInfo.ucrank, 
+                                printf("%-15s : %-5u\n", 
                                 "Total Marks",  currentNode->stInfo.ulsumMarks);
 
                                 // Fix: Change %f to %.2f if average is float,

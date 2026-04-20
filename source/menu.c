@@ -334,7 +334,7 @@ bool menuDeleteByRoll(void)
         bool blRet = FALSE;
         uint32 ulRoll = 0;
 
-        if(studentDeleteByRoll(&ulRoll))
+        if(studentDeleteByRoll(ulRoll))
             {
                 linkedListNodePrint(studentHeadNode);
                 blRet = TRUE;

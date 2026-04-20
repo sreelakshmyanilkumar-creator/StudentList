@@ -181,38 +181,38 @@ bool studentGetCount(uint32* pulCount)
 /*Average marks of each students*/
 
 bool studentGetAvgMarksOfSubjects(uint8_t* pucTotalAvg)
-{
-    bool blRet = FALSE;
-    Node* currentNode = studentHeadNode;
-    uint32_t totalMarks[MAX_SUBJECTS] = {0};
-
-    if(pucTotalAvg != NULL)
     {
-        uint32_t studentCount = 0;
-        if (studentHeadNode == NULL)
-        {
-            printf("List is empty.\n");
-            return TRUE;
-        }
+        bool blRet = FALSE;
+        Node* currentNode = studentHeadNode;
+        uint32_t totalMarks[MAX_SUBJECTS] = {0};
 
-        while(currentNode != NULL)
-        {
-            printf("Name : %s, Averagemark : %f\n",
-                    currentNode->stInfo.pucname, 
-                    currentNode->stInfo.ucaverageMarks);
-            pucTotalAvg[studentCount] = 
+        if(pucTotalAvg != NULL)
+            {
+                uint32_t studentCount = 0;
+                if (studentHeadNode == NULL)
+                    {
+                        printf("List is empty.\n");
+                        return TRUE;
+                    }
+
+                while(currentNode != NULL)
+                    {
+                        printf("Name : %s, Averagemark : %f\n",
+                        currentNode->stInfo.pucname, 
+                        currentNode->stInfo.ucaverageMarks);
+                        pucTotalAvg[studentCount] = 
                                     (uint8_t)currentNode->stInfo.ucaverageMarks;
-            currentNode = currentNode->pstNext;
-            studentCount++;
-        }
+                        currentNode = currentNode->pstNext;
+                        studentCount++;
+                    }
 
-        blRet = TRUE;
-    }
+            blRet = TRUE;
+        }
     else
-    {
-        printf("invalid input\n");
-        blRet = FALSE;
-    }
+        {
+            printf("invalid input\n");
+            blRet = FALSE;
+        }
 
     return blRet;
 }
